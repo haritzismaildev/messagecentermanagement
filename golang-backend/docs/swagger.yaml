@@ -1,0 +1,375 @@
+definitions:
+  controllers.BulkMessageRequest:
+    properties:
+      messages:
+        items:
+          $ref: '#/definitions/controllers.SendMessageRequest'
+        type: array
+    required:
+    - messages
+    type: object
+  controllers.ConversationSendRequest:
+    properties:
+      body:
+        type: string
+      contact:
+        description: 'Nomor WhatsApp client (contoh: +6281234567890)'
+        type: string
+    required:
+    - body
+    - contact
+    type: object
+  controllers.SendMessageRequest:
+    properties:
+      body:
+        type: string
+      to:
+        type: string
+    required:
+    - body
+    - to
+    type: object
+  controllers.UpdateMessageRequest:
+    properties:
+      body:
+        type: string
+    required:
+    - body
+    type: object
+  models.ChatLog:
+    properties:
+      body:
+        description: Isi pesan
+        type: string
+      device_ip:
+        description: Alamat IP perangkat pengirim
+        type: string
+      direction:
+        description: '"inbound" atau "outbound"'
+        type: string
+      from:
+        type: string
+      id:
+        type: string
+      timestamp:
+        type: string
+      to:
+        description: Nomor yang menerima pesan (misalnya, nomor Twilio)
+        type: string
+    type: object
+  routes.inboundMessage:
+    properties:
+      body:
+        example: Hello from client
+        type: string
+      from:
+        example: whatsapp:+6281234567890
+        type: string
+    type: object
+  routes.inboundMessageError:
+    properties:
+      error:
+        example: Failed to get messages from Node
+        type: string
+    type: object
+  routes.sendTwilioMessageError:
+    properties:
+      error:
+        example: some error detail
+        type: string
+      msg:
+        example: Failed to send message
+        type: string
+    type: object
+  routes.sendTwilioMessageRequest:
+    properties:
+      body:
+        example: Hello from test
+        type: string
+      to:
+        example: "+6281234567890"
+        type: string
+    type: object
+  routes.sendTwilioMessageResponse:
+    properties:
+      msg:
+        example: Message sent successfully
+        type: string
+      sid:
+        example: SMxxxxxxxxxxxxxx
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/conversation:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all chat log messages for a given contact.
+      parameters:
+      - description: Contact phone number (e.g., +6281234567890)
+        in: query
+        name: contact
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ChatLog'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get conversation history
+      tags:
+      - Conversation
+  /api/conversation/send:
+    post:
+      consumes:
+      - application/json
+      description: Send a WhatsApp message to a client and log the transaction in
+        the chatlogs collection.
+      parameters:
+      - description: Message data
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.ConversationSendRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Send a conversation message
+      tags:
+      - Conversation
+  /api/message/bulk:
+    post:
+      consumes:
+      - application/json
+      description: Send multiple WhatsApp messages in a single request.
+      parameters:
+      - description: Bulk message data
+        in: body
+        name: messages
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.BulkMessageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Bulk Messaging
+      tags:
+      - Message
+  /api/message/send:
+    post:
+      consumes:
+      - application/json
+      description: Send a WhatsApp message to a specific number.
+      parameters:
+      - description: Message data
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.SendMessageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Send a single message
+      tags:
+      - Message
+  /api/twilio-webhook:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Receives an inbound WhatsApp message from Twilio and logs the message
+        details (sender, body, timestamp, device IP) into MongoDB.
+      parameters:
+      - description: Sender's WhatsApp number (e.g., whatsapp:+628xxxxxxx)
+        in: formData
+        name: From
+        required: true
+        type: string
+      - description: Message body
+        in: formData
+        name: Body
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Inbound WhatsApp Message Webhook
+      tags:
+      - Webhook
+  /api/twilio-webhook/messages:
+    get:
+      description: Memanggil Node di http://nodehost:3881/api/messages dan meneruskan
+        respon JSON ke klien
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/routes.inboundMessage'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routes.inboundMessageError'
+      summary: Get inbound messages from Node
+      tags:
+      - Twilio
+  /message/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a message by ID.
+      parameters:
+      - description: Message ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Delete a message
+      tags:
+      - Message
+    put:
+      consumes:
+      - application/json
+      description: Update message details by ID.
+      parameters:
+      - description: Message ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update message payload
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UpdateMessageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Update a message
+      tags:
+      - Message
+  /send-twilio-message:
+    post:
+      consumes:
+      - application/json
+      description: 'Menerima JSON { "to": "+628xxx", "body": "..." } dan mengirim
+        pesan WA melalui Twilio'
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/routes.sendTwilioMessageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.sendTwilioMessageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/routes.sendTwilioMessageError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/routes.sendTwilioMessageError'
+      summary: Send a WhatsApp message via Twilio
+      tags:
+      - Twilio
+swagger: "2.0"
