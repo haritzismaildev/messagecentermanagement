@@ -1,0 +1,143 @@
+/* .chat-window {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid #ddd;
+    background-color: #fff;
+  }
+  
+  .chat-header {
+    padding: 10px;
+    background-color: #0ef;
+    color: #fff;
+  }
+  
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f4f6f9;
+  }
+  
+  .chat-bubble {
+    margin-bottom: 10px;
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+    word-wrap: break-word;
+  }
+  
+  .chat-bubble.sent {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+  }
+  
+  .chat-bubble.received {
+    background-color: #fff;
+    align-self: flex-start;
+    border: 1px solid #ddd;
+  }
+  
+  .chat-input {
+    padding: 10px;
+    background-color: #eee;
+    border-top: 1px solid #ddd;
+  }
+  
+  .chat-input form {
+    display: flex;
+    align-items: center;
+  }
+  
+  .chat-input input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .chat-input button {
+    margin-right: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .emoji-picker-container {
+    position: absolute;
+    bottom: 60px;
+    right: 20px;
+    z-index: 10;
+  } */
+
+  /* Container utama */
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* atau 100% jika parent sudah punya tinggi tertentu */
+  background-color: #f4f6f9; /* contoh latar */
+}
+
+/* Header: menempel di atas, tidak boleh ikut scroll */
+.chat-header {
+  flex: 0 0 auto; /* Tingginya ditentukan isi, tidak ikut melar */
+  padding: 10px;
+  background-color: #0ef; /* warna header */
+  color: #fff;
+  /* Anda bisa menambahkan border, dsb. */
+}
+
+/* Area pesan: mengisi sisa ruang di tengah, di-scroll */
+.chat-messages {
+  flex: 1 1 auto; /* Biar melar sesuai sisa ruang */
+  overflow-y: auto; /* Scroll jika konten melebihi tinggi */
+  padding: 10px;
+}
+
+/* Bubble pesan (opsional) */
+.chat-bubble {
+  margin-bottom: 10px;
+  max-width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+  position: relative;
+  word-wrap: break-word;
+}
+.chat-bubble.me {
+  background-color: #dcf8c6; /* warna bubble pengirim (kiri/kanan) */
+  align-self: flex-end; /* bubble di kanan */
+}
+.chat-bubble.other {
+  background-color: #fff;
+  align-self: flex-start; /* bubble di kiri */
+  border: 1px solid #ddd;
+}
+
+/* Area input: menempel di bawah, tidak scroll */
+.chat-input {
+  flex: 0 0 auto; /* Tinggi sesuai isi form */
+  padding: 10px;
+  background-color: #eee;
+  border-top: 1px solid #ddd;
+}
+.chat-input form {
+  display: flex;
+  align-items: center;
+}
+.chat-input input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.chat-input button {
+  background: #0ef;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}

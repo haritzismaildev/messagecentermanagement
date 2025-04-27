@@ -1,0 +1,134 @@
+/* .small-box .inner img {
+    max-width: 100%;
+    height: auto;
+  } */
+
+  /* .card img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .card-title {
+    margin-top: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .card {
+      margin-bottom: 20px;
+    }
+  } */
+
+  /* .small-box {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .small-box .inner img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .small-box .inner h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .small-box .inner p {
+    font-size: 1rem;
+  }
+  
+  .small-box .icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 3rem;
+    opacity: 0.3;
+  }
+  
+  .small-box-footer {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+  }
+  
+  .small-box-footer:hover {
+    color: #fff;
+    text-decoration: underline;
+  } */
+
+  /* src/pages/Home.css */
+
+.small-box {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+  border-radius: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.small-box .inner img {
+  max-width: 100%;
+  height: auto;
+}
+
+.small-box .inner h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.small-box .inner p {
+  font-size: 1rem;
+}
+
+.small-box .icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 3rem;
+  opacity: 0.3;
+}
+
+.small-box-footer {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+}
+
+.small-box-footer:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Responsivitas untuk Mobile */
+@media (max-width: 768px) {
+  .small-box {
+    padding: 15px;
+  }
+
+  .small-box .inner h3 {
+    font-size: 1.2rem;
+  }
+
+  .small-box .inner p {
+    font-size: 0.9rem;
+  }
+
+  .small-box .icon {
+    font-size: 2rem;
+  }
+
+  .small-box-footer {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,59 @@
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    /* min-height: 100vh; */
+    min-height: calc(100vh - 50px); /* misal navbar 60px */
+    padding: 20px;
+    overflow: auto;
+  }
+  .sidebar-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .menu-item:hover {
+    background-color: #34495e;
+  }
+  .menu-icon {
+    margin-right: 10px;
+  }
+  .submenu {
+    list-style: none;
+    padding-left: 20px;
+  }
+  .submenu li {
+    padding: 5px 0;
+  }
+  .submenu li a {
+    color: #ecf0f1;
+    text-decoration: none;
+  }
+  .submenu li a:hover {
+    text-decoration: underline;
+  }
+  .active > .menu-item,
+  .submenu li.active a {
+    background-color: #1abc9c;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 200px; /* atau 100% jika mau full overlay */
+      position: absolute;
+      top: 50px; /* tinggi navbar */
+      left: 0;
+      /* bottom: 0; */
+      height: calc(100vh - 50px);
+      z-index: 999; 
+    }
+  }

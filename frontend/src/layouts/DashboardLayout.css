@@ -1,0 +1,76 @@
+.dashboard-layout {
+  display: flex;
+  flex-direction: column; /* Navbar di atas, main-body di bawah */
+  min-height: 100vh;      /* agar membentang tinggi penuh */
+}
+
+.topbar {
+  height: 50px;
+  background-color: #34495e;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-right img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.profile-pic {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.logout-btn {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.main-body {
+  flex: 1;              /* agar area ini meluas di bawah topbar */
+  display: flex;        /* row: sidebar + content */
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+  /* display: flex; */
+  overflow: auto;
+  background-color: #f4f6f9;
+}
+
+/* JIKA SIDEBAR TIDAK TAMPIL, KITA FULL WIDTH */
+.dashboard-content.no-sidebar {
+  margin-left: 0; /* atau padding-left: 0 */
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 10px;
+  }
+}

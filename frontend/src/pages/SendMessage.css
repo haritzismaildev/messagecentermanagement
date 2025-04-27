@@ -1,0 +1,40 @@
+.send-message-container {
+    padding: 20px;
+  }
+
+  .input-box {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .input-box input {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333; /* Pastikan kontras dengan background */
+    background: #fff;
+  }
+  
+  .input-box input::placeholder {
+    color: #aaa;
+  }
+
+  .input-box label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: all 0.2s ease-out;
+    color: #999;
+  }
+  
+  /* Saat input difokuskan atau sudah terisi */
+  .input-box input:focus ~ label,
+  .input-box input:not(:placeholder-shown) ~ label {
+    top: -10px;
+    font-size: 12px;
+    color: #0ef; /* Warna yang mencolok untuk label */
+  }

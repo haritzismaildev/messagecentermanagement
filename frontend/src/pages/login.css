@@ -1,0 +1,185 @@
+/* src/pages/login.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #1f293a;
+}
+
+.login-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 32px;
+  height: 6px;
+  background: #2c4766;
+  border-radius: 8px;
+  transform-origin: 0 0;
+  transform: translate(-50%, -50%) rotate(calc(var(--i) * (360deg / 50)));
+  animation: animateBlink 3s linear infinite;
+  animation-delay: calc(var(--i) * (3s / 50));
+}
+
+@keyframes animateBlink {
+  0% {
+    background: #0ef;
+  }
+  25% {
+    background: #2c4766;
+  }
+}
+
+.login-box {
+  background: rgba(44, 71, 102, 0.85);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 1; /* Agar form login berada di atas animasi */
+  width: 90%;
+  max-width: 400px;
+}
+
+.login-box h2 {
+  text-align: center;
+  color: #0ef;
+  margin-bottom: 30px;
+}
+
+.input-box {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-box input {
+  width: 100%;
+  height: 50px;
+  border: 2px solid #2c4766;
+  outline: none;
+  border-radius: 40px;
+  font-size: 1em;
+  /* color: #fff;
+  background: transparent; */
+  color: #333; /* Pastikan kontras dengan background */
+  background: #fff;
+  padding: 0 20px;
+  transition: border-color 0.5s ease;
+}
+
+.input-box input:focus,
+.input-box input:valid {
+  border-color: #0ef;
+}
+
+.input-box label {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  font-size: 1em;
+  color: #fff;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+  top: -10px;
+  font-size: 0.8em;
+  background: #2c4766;
+  padding: 0 5px;
+  color: #0ef;
+}
+
+.forgot-pass {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.forgot-pass a {
+  font-size: 0.85em;
+  color: #fff;
+  text-decoration: none;
+}
+
+.forgot-pass a:hover {
+  text-decoration: underline;
+}
+
+.btn {
+  width: 100%;
+  height: 45px;
+  background: #0ef;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-size: 1em;
+  color: #1f293a;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #0cc;
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.signup-link a {
+  font-size: 1em;
+  color: #0ef;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsivitas untuk Mobile */
+@media (max-width: 768px) {
+  .login-box {
+    padding: 30px 20px;
+  }
+
+  .login-box h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    height: 40px;
+    font-size: 0.9em;
+  }
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    width: 100px;
+    height: auto;
+  }
