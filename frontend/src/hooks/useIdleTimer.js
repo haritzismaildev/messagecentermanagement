@@ -11,10 +11,14 @@ export default function useIdleTimer(timeout, onIdle) {
   useEffect(() => {
     // Daftarkan event-event aktivitas pengguna (klik, gerakan mouse, dan keyboard)
     const events = ['mousemove', 'mousedown', 'keydown', 'touchstart'];
+    
+    // Set timer awal
+    resetTimer();
+    
     events.forEach(event => window.addEventListener(event, resetTimer));
 
     // Set timer awal
-    resetTimer();
+    // resetTimer();
 
     // Cleanup event listener pada unmount
     return () => {
